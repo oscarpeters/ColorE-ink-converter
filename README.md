@@ -33,8 +33,15 @@ pip install pillow tqdm
 b/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 
 ```
 ## Making Converter file
+* Open a terminal and go to the repo directory 
+```
+cd /Users/../Downloads/ColorE-ink-converter/
+```
+* make the converter file by using:
 ```
 sudo make all
 ```
+`GCC` must be installed to do this process. 
+
 ## Exceptional credits
 The converter program is copied from [CNlohr](https://github.com/cnlohr/epaper_projects "CNLohr") his repo, were I am using it to make the `.RAW` files. 
