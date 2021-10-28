@@ -1,0 +1,155 @@
+'''
+
+    -----Inspired by the work done by CNlohr-----
+            
+            Install :
+            -   pip3 install pillow tqdm
+
+            -   Install Imagemagick
+                - MacOs --> Brew install imagemagick
+                - Linux --> sudo apt install imagemagick
+                - Windows trough their website
+        
+        The images must be one of the below
+            - Jpeg
+            - JPG
+            - PNG
+
+        Program tested on Linux and MacOs and works fully
+        On Windows there are some problems related to fully automaticly using the converter.c with arguments in CMD 
+        
+'''
+import os
+import subprocess
+import platform
+from PIL import Image, ImageOps
+from tqdm import tqdm
+''' 
+    Change the path oscarpeterss accordingly to the path of the converter map
+
+The following maps have to be made to make this script work:
+    input  -->  Map to put the files in, which are converted
+    png    -->  output of the dithered images which can be looked at
+    sdcard -->  final output goes onto the SD-card to be converted by 'sudo ./fattest'
+
+'''
+
+# Automatic path information
+file = (os.path.dirname(os.path.realpath(__file__)))
+if platform.system() == 'Darwin' or 'Linux':
+    ### CHANGE THESE FOLDER NAMES TO YOUR FOLDER LOCATION ###
+    # Linux & MacOs
+    path = file + '/input/'
+    png_path = file + '/png/'
+    png_path_undithered = file + '/png/undithered/'
+    converter_path = file
+    final_path = file + '/sdcard/'
+
+if platform.system() == 'Windows':
+    # Windows #
+    path = r'(file + "\input\\")'
+    png_path = r'(file + "\png\\")'
+    converter_path = r'(file)'
+    final_path = r'(file + "\sdcard\\")'
+
+# Waveshare size (5.65 inch)
+size = (600, 448)  # panorama view
+# size = (448, 600) # stand-up view
+
+
+def main():
+    # Makes a White background, change accordingly (r,g,b,a)
+    background = Image.new('RGBA', size, (255, 255, 255, 255))
+    background.save('background.png', 'PNG')
+
+    # Counter for photo counter
+    i = 0
+
+    for photo in os.listdir(path):
+        if photo.endswith('.JPG') or photo.endswith('.jpeg') or photo.endswith('.jpg') or photo.endswith('.png'):
+            i += 1
+
+    # Bar graph
+    t = tqdm(desc="First stage converter", total=i,
+             unit=" Images", disable=not True, smoothing=0.1, colour='#800000')
+
+    # Making 5.65 inch pictures from within the INPUT map
+    for photo in os.listdir(path):
+        # converts only files ending with .jpg, .jpeg & .png
+        if photo.endswith('.JPG') or photo.endswith('.jpeg') or photo.endswith('.jpg') or photo.endswith('.png'):
+
+            # Open Photo to be converted and don't change the orientation, and change the size accordingly
+            img = Image.open(f'{path}{photo}').convert('RGBA')
+            img = ImageOps.exif_transpose(img)
+            img.thumbnail(size, Image.ANTIALIAS)
+
+            # Finding the middle of the photo to paste it in
+            img_w, img_h = img.size
+
+            # Achtergrond
+            bg = Image.open('background.png')
+            bg_w, bg_h = bg.size
+            offset = (((bg_w - img_w) // 2), ((bg_h - img_h) // 2))
+            bg.paste(img, offset)
+
+            bg.convert('RGB').save(f'{png_path_undithered}{photo}.png', "PNG")
+            t.update()
+            # Uncomment to look at the output of the resized PNG pictures
+            # bg.show()
+
+    print(f'\nThere have been {i} photos converted\n')
+
+
+# Dithering by Floyd-Steinberg algorithm
+def FloydSteinberg(old_path, new_path):
+    print(old_path)
+  # makes the color palette E-ink
+    subprocess.call(f'convert  \
+      -size 50x50              \
+      xc:"rgb(0,0,0)"          \
+      xc:"rgb(255,255,255)"    \
+      xc:"rgb(67,138,258)"     \
+      xc:"rgb(100,64,255)"     \
+      xc:"rgb(191,0,0)"        \
+      xc:"rgb(255,243,56)"     \
+      xc:"rgb(232,126,0)"      \
+      xc:"rgb(194,164,244)"    \
+      +append                  \
+      {old_path}palette.gif', shell=True)
+    print('\nWaveshare 5.65 inch 7-color palette made')
+
+    for photo in os.listdir(old_path):
+        if photo.endswith('.png'):
+            subprocess.call(
+                f'convert {old_path}{photo} -dither FloydSteinberg -define "dither:diffusion-amount=100%" -remap {old_path}palette.gif {new_path}{photo}', shell=True)
+
+        # if Floyd-Steinberg doesn't look that great, you could try it with Riemersma dithering
+            # subprocess.call(f'convert {old_path}{photo} -dither Riemersma -remap {old_path}palette.gif {new_path}{photo}', shell=True)
+    print("\nPhotos converted to Dithered photos\n")
+
+
+def Converter(converter_path, final_path, png_path):
+    # needs some fixing
+    if platform.system() == 'Windows':
+        for photo in os.listdir(png_path):
+            if photo.endswith('.png'):
+                # problem with using converter program with arguments automaticly
+                subprocess.call(
+                    f'cd {converter_path} && gcc -o converter.c {png_path}{photo} {final_path}{photo}.RAW', shell=True)
+                # print(converter_path)
+    elif platform.system() == 'Darwin' or 'Linux':
+        # Looking into the PNG map and converts these pictures to .RAW file by using the converter program from CNlohr
+        for photo in os.listdir(png_path):
+            if photo.endswith('.png'):
+                subprocess.call(
+                    f'cd {converter_path} && ./converter {png_path}{photo} {final_path}{photo}.RAW', shell=True)
+                # print(converter_path)
+    else:
+        print("Don't know what you running this on?!")
+    print("Converter is done.\nThe RAW files can be loaded into the SD-card\n")
+
+
+if __name__ == '__main__':
+    main()
+    FloydSteinberg(png_path_undithered, png_path)
+    Converter(converter_path, final_path, png_path)
