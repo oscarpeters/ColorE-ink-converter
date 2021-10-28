@@ -15,7 +15,7 @@ converting to dithered picture to a `.RAW` file.
 | PNG/undithered | size matched pictures, debug      |
 | SDcard | `.RAW` files to be placed onto an SD-card|
 
-### Setup: 
+## Setup: 
 #### Install Python libraries
 ```
 pip install pillow tqdm
@@ -32,4 +32,9 @@ pip install pillow tqdm
 ```
 b/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 
 ```
-### The converter program is copied from [CNlohr](https://github.com/cnlohr/epaper_projects "CNLohr") his repo, were I am using it to make the `.RAW` files. 
+## Making Converter file
+```
+sudo make all
+```
+## Exceptional credits
+The converter program is copied from [CNlohr](https://github.com/cnlohr/epaper_projects "CNLohr") his repo, were I am using it to make the `.RAW` files. 
