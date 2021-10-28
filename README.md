@@ -21,7 +21,7 @@ converting to dithered picture to a `.RAW` file.
 pip install pillow tqdm
 ``` 
 
-#### Install `ImageMagick`
+#### Install ImageMagick
 | Platform        | How-to           |
 | ------------- |:-------------:|
 | Windows | [ImageMagick Website](https://imagemagick.org/script/download.php "ImageMagick")|
