@@ -54,6 +54,22 @@ if platform.system() == 'Windows':
 size = (600, 448)  # panorama view
 # size = (448, 600) # stand-up view
 
+def init(converter_path):
+    try:
+        subprocess.call(f'gcc -v', shell=True)
+    except ValueError:
+        print("gcc not installed")
+        if platform.system() == 'Darwin':
+            subprocess.call(f'brew install gcc && xcode-select --install', shell=True)
+        elif platform.system() == 'Linux':
+            subprocess.call(f'sudo apt install build-essential manpages-dev -y', shell=True)
+    else:
+        subprocess.call(f'cd {file} | sudo make all', shell=True)
+    finally:
+        pass
+
+    # working on this bit, where the program is looking if the converter file has been made #
+    subprocess.call(f'cd {file} | sudo make all', shell=True)
 
 def main():
     # Makes a White background, change accordingly (r,g,b,a)
@@ -148,6 +164,7 @@ def Converter(converter_path, final_path, png_path):
 
 
 if __name__ == '__main__':
+    init()
     main()
     FloydSteinberg(png_path_undithered, png_path)
     Converter(converter_path, final_path, png_path)
