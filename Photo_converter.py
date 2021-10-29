@@ -24,8 +24,7 @@ import subprocess
 import platform
 from PIL import Image, ImageOps
 from tqdm import tqdm
-''' 
-    Change the path oscarpeterss accordingly to the path of the converter map
+'''
 
 The following maps have to be made to make this script work:
     input  -->  Map to put the files in, which are converted
@@ -37,8 +36,7 @@ The following maps have to be made to make this script work:
 # Automatic path information
 file = (os.path.dirname(os.path.realpath(__file__)))
 if platform.system() == 'Darwin' or 'Linux':
-    ### CHANGE THESE FOLDER NAMES TO YOUR FOLDER LOCATION ###
-    # Linux & MacOs
+    # Linux & MacOs #
     path = file + '/input/'
     png_path = file + '/png/'
     png_path_undithered = file + '/png/undithered/'
