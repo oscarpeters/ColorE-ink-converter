@@ -10,7 +10,7 @@ when converting a normal `.PNG` or `.JPG` to `.RAW` to be read by the microcontr
 Therefore, made this not so handsome Python program to convert the pictures automaticly in matter of seconds.
 
 The program is tested on `MacOs`, `Windows`, and `Linux` were the Windows version has some issues when
-converting to dithered picture to a `.RAW` file. 
+converting dithered picture to a `.RAW` file.  
 
 | Maps        | Usage           |
 | ------------- |:-------------:|
