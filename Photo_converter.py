@@ -1,13 +1,8 @@
 '''
     -----Inspired by the work of CNlohr-----
-            
-            Install :
-            -   pip3 install pillow tqdm
-            -   Install Imagemagick
-                - MacOs --> Brew install imagemagick
-                - Linux --> sudo apt install imagemagick
-                - Windows trough their website
         
+        Follow the instructions on GitHub    
+
         The images must be one of the below:
             - Jpeg
             - JPG
@@ -163,6 +158,6 @@ def Converter(converter_path, final_path, png_path):
 
 if __name__ == '__main__':
     init()
-    # main()
-    # FloydSteinberg(png_path_undithered, png_path)
-    # Converter(converter_path, final_path, png_path)
+    main()
+    FloydSteinberg(png_path_undithered, png_path)
+    Converter(converter_path, final_path, png_path)
