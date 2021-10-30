@@ -1,10 +1,8 @@
 '''
-
     -----Inspired by the work of CNlohr-----
             
             Install :
             -   pip3 install pillow tqdm
-
             -   Install Imagemagick
                 - MacOs --> Brew install imagemagick
                 - Linux --> sudo apt install imagemagick
@@ -14,7 +12,6 @@
             - Jpeg
             - JPG
             - PNG
-
         ! program not working on Windows yet !
         
 '''
@@ -24,12 +21,10 @@ import platform
 from PIL import Image, ImageOps
 from tqdm import tqdm
 '''
-
 The following maps have to be made to make this script work:
     input  -->  Map to put the files in, which are converted
     png    -->  output of the dithered images which can be looked at
     sdcard -->  final output goes onto the SD-card
-
 '''
 
 # Automatic path information
@@ -53,22 +48,25 @@ if platform.system() == 'Windows':
 size = (600, 448)  # panorama view
 # size = (448, 600) # stand-up view
 
-def init(converter_path):
+
+def init():
     try:
         subprocess.call(f'gcc -v', shell=True)
     except ValueError:
         print("gcc not installed")
         if platform.system() == 'Darwin':
-            subprocess.call(f'brew install gcc && xcode-select --install', shell=True)
+            subprocess.call(
+                f'brew install gcc && xcode-select --install', shell=True)
+            subprocess.call(f'cd {file} | make ', shell=True)
         elif platform.system() == 'Linux':
-            subprocess.call(f'sudo apt install build-essential manpages-dev -y', shell=True)
+            subprocess.call(
+                f'sudo apt install build-essential manpages-dev -y', shell=True)
+            subprocess.call(f'cd {file} | make ', shell=True)
     else:
-        subprocess.call(f'cd {file} | sudo make all', shell=True)
+        subprocess.call(f'cd {file} | make ', shell=True)
     finally:
         pass
 
-    # working on this bit, where the program is looking if the converter file has been made #
-    subprocess.call(f'cd {file} | sudo make all', shell=True)
 
 def main():
     # Makes a White background, change accordingly (r,g,b,a)
