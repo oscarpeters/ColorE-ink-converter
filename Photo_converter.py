@@ -1,6 +1,6 @@
 '''
 
-    -----Inspired by the work done by CNlohr-----
+    -----Inspired by the work of CNlohr-----
             
             Install :
             -   pip3 install pillow tqdm
@@ -10,13 +10,12 @@
                 - Linux --> sudo apt install imagemagick
                 - Windows trough their website
         
-        The images must be one of the below
+        The images must be one of the below:
             - Jpeg
             - JPG
             - PNG
 
-        Program tested on Linux and MacOs and works fully
-        On Windows there are some problems related to fully automaticly using the converter.c with arguments in CMD 
+        ! program not working on Windows yet !
         
 '''
 import os
@@ -29,7 +28,7 @@ from tqdm import tqdm
 The following maps have to be made to make this script work:
     input  -->  Map to put the files in, which are converted
     png    -->  output of the dithered images which can be looked at
-    sdcard -->  final output goes onto the SD-card to be converted by 'sudo ./fattest'
+    sdcard -->  final output goes onto the SD-card
 
 '''
 
