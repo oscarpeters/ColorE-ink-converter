@@ -1,6 +1,10 @@
-## Inspirated by [CNlohr](https://github.com/cnlohr/ "CNLohr") for his contribution in making the next level interactive displays. 
+# Waveshare 5.65 Inch Color E-paper display image converter
+This program fully automates the process from a `.PNG`, `.JPG`, and `.Jpeg` to a file format
+which a microcontroller can read and use to show on the E-paper
 
-Watching his YouTube video gave me the spirit to make a display like his, but would not spent much time 
+## Inspirated by [CNlohr](https://github.com/cnlohr/ "CNLohr") his idea. 
+
+Watching his [YouTube Video](https://www.youtube.com/watch?v=YawP9RjPcJA&t=248s "YouTube") gave me the spirit to make a display like his, but would not spent much time 
 when converting a normal `.PNG` or `.JPG` to `.RAW` to be read by the microcontroller.
 
 Therefore, made this not so handsome Python program to convert the pictures automaticly in matter of seconds.
@@ -32,16 +36,11 @@ pip install pillow tqdm
 ```
 b/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 
 ```
-## Making Converter file
-* Open a terminal and go to the repo directory 
-```
-cd /Users/../Downloads/ColorE-ink-converter/
-```
-* make the converter file by using:
-```
-sudo make all
-```
-`GCC` must be installed to do this process. 
+
+
+## Additional software:
+**`GCC`** must be installed to do make `.RAW` files. 
+
 
 ## Exceptional credits
 The converter program is copied from [CNlohr](https://github.com/cnlohr/epaper_projects "CNLohr") his repo, were I am using it to make the `.RAW` files. 
