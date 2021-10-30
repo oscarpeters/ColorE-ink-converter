@@ -34,7 +34,8 @@ pip install pillow tqdm
 
 * When using MacOs, `Homebrew` should be installed by:
 ```
-b/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 ```
 
 
