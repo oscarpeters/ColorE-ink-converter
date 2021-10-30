@@ -31,7 +31,7 @@ The following maps have to be made to make this script work:
 file = (os.path.dirname(os.path.realpath(__file__)))
 if platform.system() == 'Darwin' or 'Linux':
     # Linux & MacOs #
-    path = file + '/input/'
+    pathh = file + '/input/'
     png_path = file + '/png/'
     png_path_undithered = file + '/png/undithered/'
     converter_path = file
@@ -39,10 +39,11 @@ if platform.system() == 'Darwin' or 'Linux':
 
 if platform.system() == 'Windows':
     # Windows #
-    path = r'(file + "\input\\")'
-    png_path = r'(file + "\png\\")'
+    pathh = os.path.join(file, 'input', "")
+    png_path = os.path.join(file, 'png', "")
+    png_path_undithered = os.path.join(file, 'png', 'undithered', "")
     converter_path = r'(file)'
-    final_path = r'(file + "\sdcard\\")'
+    final_path = os.path.join(file, 'sdcard', "")
 
 # Waveshare size (5.65 inch)
 size = (600, 448)  # panorama view
@@ -50,22 +51,22 @@ size = (600, 448)  # panorama view
 
 
 def init():
-    try:
-        subprocess.call(f'gcc -v', shell=True)
-    except ValueError:
-        print("gcc not installed")
-        if platform.system() == 'Darwin':
-            subprocess.call(
-                f'brew install gcc && xcode-select --install', shell=True)
-            subprocess.call(f'cd {file} | make ', shell=True)
-        elif platform.system() == 'Linux':
-            subprocess.call(
-                f'sudo apt install build-essential manpages-dev -y', shell=True)
-            subprocess.call(f'cd {file} | make ', shell=True)
+    if platform.system() == 'Darwin' or 'Linux':
+        try:
+            subprocess.call(f'gcc --version', shell=True)
+        except OSError:
+            print("gcc not installed")
+            if platform.system() == 'Darwin':
+                subprocess.call(
+                    f'brew install gcc && xcode-select --install', shell=True)
+                subprocess.call(f'cd {file} | make ', shell=True)
+            elif platform.system() == 'Linux':
+                subprocess.call(
+                    f'sudo apt install build-essential manpages-dev -y', shell=True)
+                subprocess.call(f'cd {file} | make ', shell=True)
     else:
-        subprocess.call(f'cd {file} | make ', shell=True)
-    finally:
-        pass
+        #! Stuck here getting the Python terminal using GCC. Python terminal is not a command prompt or powershell, it can't reach GCC
+        subprocess.popen("cmd", f'cd {file} | gcc -o $@ $^ -lm converter.exe converter.c ', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 
 def main():
@@ -76,7 +77,7 @@ def main():
     # Counter for photo counter
     i = 0
 
-    for photo in os.listdir(path):
+    for photo in os.listdir(pathh):
         if photo.endswith('.JPG') or photo.endswith('.jpeg') or photo.endswith('.jpg') or photo.endswith('.png'):
             i += 1
 
@@ -85,12 +86,12 @@ def main():
              unit=" Images", disable=not True, smoothing=0.1, colour='#800000')
 
     # Making 5.65 inch pictures from within the INPUT map
-    for photo in os.listdir(path):
+    for photo in os.listdir(pathh):
         # converts only files ending with .jpg, .jpeg & .png
         if photo.endswith('.JPG') or photo.endswith('.jpeg') or photo.endswith('.jpg') or photo.endswith('.png'):
 
             # Open Photo to be converted and don't change the orientation, and change the size accordingly
-            img = Image.open(f'{path}{photo}').convert('RGBA')
+            img = Image.open(f'{pathh}{photo}').convert('RGBA')
             img = ImageOps.exif_transpose(img)
             img.thumbnail(size, Image.ANTIALIAS)
 
@@ -146,7 +147,7 @@ def Converter(converter_path, final_path, png_path):
             if photo.endswith('.png'):
                 # problem with using converter program with arguments automaticly
                 subprocess.call(
-                    f'cd {converter_path} && gcc -o converter.c {png_path}{photo} {final_path}{photo}.RAW', shell=True)
+                    f'cd {converter_path} | ./converter.exe {png_path}{photo} {final_path}{photo}.RAW', shell=True)
                 # print(converter_path)
     elif platform.system() == 'Darwin' or 'Linux':
         # Looking into the PNG map and converts these pictures to .RAW file by using the converter program from CNlohr
@@ -162,6 +163,6 @@ def Converter(converter_path, final_path, png_path):
 
 if __name__ == '__main__':
     init()
-    main()
-    FloydSteinberg(png_path_undithered, png_path)
-    Converter(converter_path, final_path, png_path)
+    # main()
+    # FloydSteinberg(png_path_undithered, png_path)
+    # Converter(converter_path, final_path, png_path)
