@@ -39,8 +39,14 @@ pip install pillow tqdm
 
 
 ## Additional software:
-**`GCC`** must be installed to do make `.RAW` files. 
+**`GCC`** must be installed to make `.RAW` files. 
 
+follow these steps to install GCC:
+
+*Windows :*
+* Install MingW by following this [YouTube video](https://www.youtube.com/watch?v=sXW2VLrQ3Bs "Installing GCC on Windows")
+
+**The script is looking if GCC is installed and will for Linux & MacOs automaticly install it.**
 
 ## Exceptional credits
 The converter program is copied from [CNlohr](https://github.com/cnlohr/epaper_projects "CNLohr") his repo, were I am using it to make the `.RAW` files. 
