@@ -61,7 +61,7 @@ def init():
                 subprocess.call(f'cd {file} | make ', shell=True)
     else:
         #! Stuck here getting the Python terminal using GCC. Python terminal is not a command prompt or powershell, it can't reach GCC
-        subprocess.popen("cmd", f'cd {file} | gcc -o $@ $^ -lm converter.exe converter.c ', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        subprocess.run(["gcc", f'-o $@ $^ -lm {file}converter.exe',  f'{file}converter.c'])
 
 
 def main():
@@ -141,8 +141,7 @@ def Converter(converter_path, final_path, png_path):
         for photo in os.listdir(png_path):
             if photo.endswith('.png'):
                 # problem with using converter program with arguments automaticly
-                subprocess.call(
-                    f'cd {converter_path} | ./converter.exe {png_path}{photo} {final_path}{photo}.RAW', shell=True)
+                subprocess.run([f'{file}/converter.exe', f'{png_path}{photo}', f'{final_path}{photo}.RAW'])
                 # print(converter_path)
     elif platform.system() == 'Darwin' or 'Linux':
         # Looking into the PNG map and converts these pictures to .RAW file by using the converter program from CNlohr
