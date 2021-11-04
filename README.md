@@ -7,7 +7,7 @@ which a microcontroller can read and use to show on the E-paper
 Watching his [YouTube Video](https://www.youtube.com/watch?v=YawP9RjPcJA&t=248s "YouTube") gave me the spirit to make a display like his, but would not spent much time 
 when converting a normal `.PNG` or `.JPG` to `.RAW` to be read by the microcontroller.
 
-Therefore, made this not so handsome Python program to convert the pictures automaticly in matter of seconds.
+Therefore, made this not so handsome Python program to convert the pictures automatically in matter of seconds.
 
 The program is tested on `MacOs`, `Windows`, and `Linux` were the Windows version has some issues when
 converting dithered picture to a `.RAW` file.  
@@ -46,7 +46,7 @@ follow these steps to install GCC:
 ### Windows :
 * Install MingW by following this [YouTube video](https://www.youtube.com/watch?v=sXW2VLrQ3Bs "Installing GCC on Windows")
 
-**The Python script is looking if GCC is installed and will for Linux & MacOs automaticly install it.**
+**The Python script is looking if GCC is installed and will for Linux & MacOs automatically install it.**
 
 ## Exceptional credits
 The converter program is copied from [CNlohr](https://github.com/cnlohr/epaper_projects "CNLohr") his repo, were I am using it to make the `.RAW` files. 
