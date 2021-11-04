@@ -5,6 +5,7 @@ which a microcontroller can read and use to show on the E-paper
 ![Alt Text](https://github.com/oscarpeters/ColorE-ink-converter/blob/main/Lena(converter)gif.gif)
 
 The image is resized and white stripes are added to get the aspect ratio right. Dithering is added because of the 7 colors which the display can produce.
+This picture is an example while the original image and the converted image are overlayed and resized to fit on top of eachother.
 
 ## Inspirated by [CNlohr](https://github.com/cnlohr/ "CNLohr") YouTube video. 
 
