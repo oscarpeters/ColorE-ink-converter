@@ -40,13 +40,10 @@ pip install pillow tqdm
 
 ## Additional software:
 **`GCC`** must be installed to make `.RAW` files. 
-
-follow these steps to install GCC:
-
 ### Windows :
 * Install MingW by following this [YouTube video](https://www.youtube.com/watch?v=sXW2VLrQ3Bs "Installing GCC on Windows")
 
-**The Python script is looking if GCC is installed and will for Linux & MacOs automatically install it.**
+**The Python script is looking if GCC is installed and will for Linux & MacOs automatically install it if not installed yet.**
 
 
 ## SD-card formatting
