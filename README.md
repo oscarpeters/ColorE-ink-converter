@@ -48,5 +48,14 @@ follow these steps to install GCC:
 
 **The Python script is looking if GCC is installed and will for Linux & MacOs automatically install it.**
 
+
+## SD-card formatting
+
+There are a couple of issues when using some SD-cards from unknown brands, these SD-cards have a different block size which when converting the correct format
+will not work. 
+
+I am using `Lexar 633x 32Gb` SD-cards which work fine.
+SD-card must be converted to `FAT32` with a **MAXIMUM** size of **35MB**.  
+
 ## Exceptional credits
 The converter program is copied from [CNlohr](https://github.com/cnlohr/epaper_projects "CNLohr") his repo, were I am using it to make the `.RAW` files. 
