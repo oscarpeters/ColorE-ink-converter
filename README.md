@@ -2,6 +2,8 @@
 This program fully automates the process from a `.PNG`, `.JPG`, and `.Jpeg` to a file format
 which a microcontroller can read and use to show on the E-paper
 
+![Alt Text](https://github.com/oscarpeters/ColorE-ink-converter/blob/main/Lena(converter)gif.gif)
+
 ## Inspirated by [CNlohr](https://github.com/cnlohr/ "CNLohr") YouTube video. 
 
 Watching his [YouTube Video](https://www.youtube.com/watch?v=YawP9RjPcJA&t=248s "YouTube") gave me the spirit to make a display like his, but would not spent much time 
