@@ -142,13 +142,19 @@ def Converter(converter_path, final_path, png_path):
             if photo.endswith('.png'):
                 # problem with using converter program with arguments automaticly
                 subprocess.run([f'{file}/converter.exe', f'{png_path}{photo}', f'{final_path}{photo}.RAW'])
-                # print(converter_path)
+            if not photo.endswith('.png'):
+                subprocess.call(f'del {final_path}{photo}', shell=True)
+                print(f'Deleted files in SD-card map: {photo}')
+            
     elif platform.system() == 'Darwin' or 'Linux':
         # Looking into the PNG map and converts these pictures to .RAW file by using the converter program from CNlohr
         for photo in os.listdir(png_path):
             if photo.endswith('.png'):
                 subprocess.call(
                     f'cd {converter_path} && ./converter {png_path}{photo} {final_path}{photo}.RAW', shell=True)
+            if not photo.endswith('.png'):
+                subprocess.call(f'rm {final_path}{photo}')
+                print(f'Deleted files in SD-card map: {photo}')
                 # print(converter_path)
     else:
         print("Don't know what you running this on?!")
