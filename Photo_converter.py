@@ -7,7 +7,7 @@
             - Jpeg
             - JPG
             - PNG
-        ! program not working on Windows yet !
+        ! program almost fully working on Windows !
         
 '''
 import os
