@@ -46,8 +46,10 @@ size = (600, 448)  # panorama view
 # size = (448, 600) # stand-up view
 
 
+# Initializes if the program can run properly
 def init():
-    if platform.system() == 'Darwin' or 'Linux':
+    # Checks system runnning program on, checks if GCC is installed, if not installs it
+    if platform.system() == 'Darwin' or 'Linux': 
         if (which('gcc') is None): 
                 print("gcc not installed")
                 if platform.system() == 'Darwin':
@@ -60,8 +62,10 @@ def init():
                     subprocess.call(f'cd {file} | make ', shell=True)
     if platform.system() == 'Windows':
         if (which('gcc') is None):
+            # For Windows the user has to install GCC manually, if not found raises an error
             raise TypeError('GCC is not installed yet. Please follow the instructions on Github')
         else:
+            # Makes the .c file to an executable file
             subprocess.run(["gcc", f'-o $@ $^ -lm {file}converter.exe',  f'{file}converter.c'])
 
 
@@ -131,13 +135,13 @@ def FloydSteinberg(old_path, new_path):
             subprocess.call(
                 f'convert {old_path}{photo} -dither FloydSteinberg -define "dither:diffusion-amount=100%" -remap {old_path}palette.gif {new_path}{photo}', shell=True)
 
-        # if Floyd-Steinberg doesn't look that great, you could try it with Riemersma dithering
-            # subprocess.call(f'convert {old_path}{photo} -dither Riemersma -remap {old_path}palette.gif {new_path}{photo}', shell=True)
+        ''' if Floyd-Steinberg doesn't look that great, you could try it with Riemersma dithering
+             subprocess.call(f'convert {old_path}{photo} -dither Riemersma -remap {old_path}palette.gif {new_path}{photo}', shell=True)
+        '''
     print("\nPhotos converted to Dithered photos\n")
 
 
 def Converter(converter_path, final_path, png_path):
-    # needs some fixing
     if platform.system() == 'Windows':
         for photo in os.listdir(png_path):
             if photo.endswith('.png'):
