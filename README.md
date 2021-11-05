@@ -61,5 +61,5 @@ will not work.
 I am using `Lexar 633x 32Gb` SD-cards which work fine.
 SD-card must be converted to `FAT32` with a **MAXIMUM** size of **35MB**.  
 
-## Exceptional credits
+## Credits
 The converter program is copied from [CNlohr](https://github.com/cnlohr/epaper_projects "CNLohr") his repo, were I am using it to make the `.RAW` files. 
