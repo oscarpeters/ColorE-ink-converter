@@ -13,7 +13,6 @@ import os
 import subprocess
 import platform
 from shutil import which
-from typing import Tuple
 from PIL import Image, ImageOps
 from tqdm import tqdm
 
@@ -43,25 +42,28 @@ size = (600, 448)  # panorama view
 # Initializes if the program can run properly
 def init():
     # Checks system runnning program on, checks if GCC is installed, if not installs it
-    if platform.system() == 'Darwin' or 'Linux': 
-        if (which('gcc') is None): 
-                print("gcc not installed")
-                if platform.system() == 'Darwin':
-                    subprocess.call(
-                        f'brew install gcc && xcode-select --install', shell=True)
-                    subprocess.call(f'cd {file} | make ', shell=True)
-                elif platform.system() == 'Linux':
-                    subprocess.call(
-                        f'sudo apt install build-essential manpages-dev -y', shell=True)
-                    subprocess.call(f'cd {file} | make ', shell=True)
+    if platform.system() == 'Darwin' or 'Linux':
+        if (which('gcc') is None):
+            print("gcc not installed")
+            if platform.system() == 'Darwin':
+                subprocess.call(
+                    f'brew install gcc && xcode-select --install', shell=True)
+                subprocess.call(f'cd {file} | make ', shell=True)
+            elif platform.system() == 'Linux':
+                subprocess.call(
+                    f'sudo apt install build-essential manpages-dev -y', shell=True)
+                subprocess.call(f'cd {file} | make ', shell=True)
     if platform.system() == 'Windows':
         if (which('gcc') is None):
             # For Windows the user has to install GCC manually, if not found raises an error
-            raise TypeError('GCC is not installed yet. Please follow the instructions on Github')
+            raise TypeError(
+                'GCC is not installed yet. Please follow the instructions on Github')
         else:
-            subprocess.call(f'cd {file} | gcc -o .\converter.exe .\converter.c', shell=True)
+            subprocess.call(
+                f'cd {file} | gcc -o .\converter.exe .\converter.c', shell=True)
 
-def main():
+
+def Pillow():
     # Makes a White background, change accordingly (r,g,b,a)
     background = Image.new('RGBA', size, (255, 255, 255, 255))
     background.save('background.png', 'PNG')
@@ -101,7 +103,8 @@ def main():
             # Uncomment to look at the output of the resized PNG pictures
             # bg.show()
         if photo.endswith('.JPG') or photo.endswith('.jpeg') or photo.endswith('.jpg') or photo.endswith('.png') is None:
-            raise NameError('No pictures which end with either .png, .jpg or .jpeg')
+            raise NameError(
+                'No pictures which end with either .png, .jpg or .jpeg')
     print(f'\nThere have been {i} photos converted\n')
 
 
@@ -139,19 +142,22 @@ def Converter(converter_path, final_path, png_path):
         for photo in os.listdir(png_path):
             if photo.endswith('.png'):
                 # problem with using converter program with arguments automaticly
-                subprocess.call(f'cd {file} | .\converter.exe {png_path}{photo} {final_path}{photo}.RAW', shell=True)
-            if not photo.endswith('.png'):
+                subprocess.call(
+                    f'cd {file} | .\converter.exe {png_path}{photo} {final_path}{photo}.RAW', shell=True)
+        for photo in os.listdir(final_path):
+            if not photo.endswith('.RAW'):
                 subprocess.call(f'del {final_path}{photo}', shell=True)
                 print('Deleted unnecassary files in SD-card map')
-            
+
     elif platform.system() == 'Darwin' or 'Linux':
         # Looking into the PNG map and converts these pictures to .RAW file by using the converter program from CNlohr
         for photo in os.listdir(png_path):
             if photo.endswith('.png'):
                 subprocess.call(
                     f'cd {converter_path} && ./converter {png_path}{photo} {final_path}{photo}.RAW', shell=True)
-            if not photo.endswith('.png'):
-                subprocess.call(f'rm {final_path}{photo}')
+        for photo in os.listdir(final_path):
+            if not photo.endswith('.RAW'):
+                #subprocess.call(f'rm {final_path}{photo}', shell=True)
                 print('Deleted unnecassary files in SD-card map')
     else:
         print("Don't know what you running this on?!")
@@ -160,6 +166,6 @@ def Converter(converter_path, final_path, png_path):
 
 if __name__ == '__main__':
     init()
-    main()
+    Pillow()
     FloydSteinberg(png_path_undithered, png_path)
     Converter(converter_path, final_path, png_path)
