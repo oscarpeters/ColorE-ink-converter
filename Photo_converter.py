@@ -7,7 +7,6 @@
             - Jpeg
             - JPG
             - PNG
-        ! program not working on Windows yet !
         
 '''
 import os
@@ -17,12 +16,6 @@ from shutil import which
 from typing import Tuple
 from PIL import Image, ImageOps
 from tqdm import tqdm
-'''
-The following maps have to be made to make this script work:
-    input  -->  Map to put the files in, which are converted
-    png    -->  output of the dithered images which can be looked at
-    sdcard -->  final output goes onto the SD-card
-'''
 
 # Automatic path information
 file = (os.path.dirname(os.path.realpath(__file__)))
@@ -107,7 +100,8 @@ def main():
             t.update()
             # Uncomment to look at the output of the resized PNG pictures
             # bg.show()
-
+        if photo.endswith('.JPG') or photo.endswith('.jpeg') or photo.endswith('.jpg') or photo.endswith('.png') is None:
+            raise NameError('No pictures which end with either .png, .jpg or .jpeg')
     print(f'\nThere have been {i} photos converted\n')
 
 
@@ -148,7 +142,7 @@ def Converter(converter_path, final_path, png_path):
                 subprocess.call(f'cd {file} | .\converter.exe {png_path}{photo} {final_path}{photo}.RAW', shell=True)
             if not photo.endswith('.png'):
                 subprocess.call(f'del {final_path}{photo}', shell=True)
-                print(f'Deleted files in SD-card map: {photo}')
+                print('Deleted unnecassary files in SD-card map')
             
     elif platform.system() == 'Darwin' or 'Linux':
         # Looking into the PNG map and converts these pictures to .RAW file by using the converter program from CNlohr
@@ -158,8 +152,7 @@ def Converter(converter_path, final_path, png_path):
                     f'cd {converter_path} && ./converter {png_path}{photo} {final_path}{photo}.RAW', shell=True)
             if not photo.endswith('.png'):
                 subprocess.call(f'rm {final_path}{photo}')
-                print(f'Deleted files in SD-card map: {photo}')
-                # print(converter_path)
+                print('Deleted unnecassary files in SD-card map')
     else:
         print("Don't know what you running this on?!")
     print("Converter is done.\nThe RAW files can be loaded into the SD-card\n")
