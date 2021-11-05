@@ -14,7 +14,7 @@ import os
 import subprocess
 import platform
 from shutil import which
-from distutils.spawn import find_executable
+from typing import Tuple
 from PIL import Image, ImageOps
 from tqdm import tqdm
 '''
@@ -56,20 +56,17 @@ def init():
                 if platform.system() == 'Darwin':
                     subprocess.call(
                         f'brew install gcc && xcode-select --install', shell=True)
+                    subprocess.call(f'cd {file} | make ', shell=True)
                 elif platform.system() == 'Linux':
                     subprocess.call(
                         f'sudo apt install build-essential manpages-dev -y', shell=True)
-        if (find_executable('./converter', {file}) is None):
-            subprocess.call(f'cd {file} | make ', shell=True)
+                    subprocess.call(f'cd {file} | make ', shell=True)
     if platform.system() == 'Windows':
         if (which('gcc') is None):
             # For Windows the user has to install GCC manually, if not found raises an error
             raise TypeError('GCC is not installed yet. Please follow the instructions on Github')
         else:
-            if (find_executable('converter.exe', {file}) is None):
-                # Makes the .c file to an executable file
-                subprocess.run(["gcc", f'-o $@ $^ -lm {file}converter.exe',  f'{file}converter.c'])
-
+            subprocess.call(f'cd {file} | gcc -o .\converter.exe .\converter.c', shell=True)
 
 def main():
     # Makes a White background, change accordingly (r,g,b,a)
@@ -148,7 +145,7 @@ def Converter(converter_path, final_path, png_path):
         for photo in os.listdir(png_path):
             if photo.endswith('.png'):
                 # problem with using converter program with arguments automaticly
-                subprocess.run([f'{file}/converter.exe', f'{png_path}{photo}', f'{final_path}{photo}.RAW'])
+                subprocess.call(f'cd {file} | .\converter.exe {png_path}{photo} {final_path}{photo}.RAW', shell=True)
             if not photo.endswith('.png'):
                 subprocess.call(f'del {final_path}{photo}', shell=True)
                 print(f'Deleted files in SD-card map: {photo}')
