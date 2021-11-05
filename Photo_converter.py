@@ -13,6 +13,7 @@
 import os
 import subprocess
 import platform
+from shutil import which
 from PIL import Image, ImageOps
 from tqdm import tqdm
 '''
@@ -47,21 +48,21 @@ size = (600, 448)  # panorama view
 
 def init():
     if platform.system() == 'Darwin' or 'Linux':
-        try:
-            subprocess.call(f'gcc --version', shell=True)
-        except OSError:
-            print("gcc not installed")
-            if platform.system() == 'Darwin':
-                subprocess.call(
-                    f'brew install gcc && xcode-select --install', shell=True)
-                subprocess.call(f'cd {file} | make ', shell=True)
-            elif platform.system() == 'Linux':
-                subprocess.call(
-                    f'sudo apt install build-essential manpages-dev -y', shell=True)
-                subprocess.call(f'cd {file} | make ', shell=True)
-    else:
-        #! Stuck here getting the Python terminal using GCC. Python terminal is not a command prompt or powershell, it can't reach GCC
-        subprocess.run(["gcc", f'-o $@ $^ -lm {file}converter.exe',  f'{file}converter.c'])
+        if (which('gcc') is None): 
+                print("gcc not installed")
+                if platform.system() == 'Darwin':
+                    subprocess.call(
+                        f'brew install gcc && xcode-select --install', shell=True)
+                    subprocess.call(f'cd {file} | make ', shell=True)
+                elif platform.system() == 'Linux':
+                    subprocess.call(
+                        f'sudo apt install build-essential manpages-dev -y', shell=True)
+                    subprocess.call(f'cd {file} | make ', shell=True)
+    if platform.system() == 'Windows':
+        if (which('gcc') is None):
+            raise TypeError('GCC is not installed yet. Please follow the instructions on Github')
+        else:
+            subprocess.run(["gcc", f'-o $@ $^ -lm {file}converter.exe',  f'{file}converter.c'])
 
 
 def main():
