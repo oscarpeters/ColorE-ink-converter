@@ -157,7 +157,7 @@ def Converter(converter_path, final_path, png_path):
                     f'cd {converter_path} && ./converter {png_path}{photo} {final_path}{photo}.RAW', shell=True)
         for photo in os.listdir(final_path):
             if not photo.endswith('.RAW'):
-                #subprocess.call(f'rm {final_path}{photo}', shell=True)
+                subprocess.call(f'rm {final_path}{photo}', shell=True)
                 print('Deleted unnecassary files in SD-card map')
     else:
         print("Don't know what you running this on?!")
