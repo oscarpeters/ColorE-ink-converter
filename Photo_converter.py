@@ -63,22 +63,10 @@ if platform.system() == 'Windows':
 # Waveshare size (5.65 inch)
 size = (600, 448)  # panorama view
 # size = (448, 600) # stand-up view
-
-
+ 
 # Initializes if the program can run properly
 def init():
-    # Checks system runnning program on, checks if GCC is installed, if not installs it
-    if platform.system() == 'Darwin' or 'Linux':
-        if (which('gcc') is None):
-            print("gcc not installed")
-            if platform.system() == 'Darwin':
-                subprocess.call(
-                    f'brew install gcc && xcode-select --install', shell=True)
-                subprocess.call(f'cd {file} | make ', shell=True)
-            elif platform.system() == 'Linux':
-                subprocess.call(
-                    f'sudo apt install build-essential manpages-dev -y', shell=True)
-                subprocess.call(f'cd {file} | make ', shell=True)
+    # Checks system runnning program on, checks if GCC is installed, if not installs it        
     if platform.system() == 'Windows':
         if (which('gcc') is None):
             # For Windows the user has to install GCC manually, if not found raises an error
@@ -88,6 +76,32 @@ def init():
             subprocess.call(
                 f'cd {file} | gcc -o .\converter.exe .\converter.c', shell=True)
 
+    if platform.system() == 'Linux':
+        if (which('imagemagick') is None):
+            print('Installing ImageMagick, this may take a while')
+            subprocess.call('git clone https://github.com/ImageMagick/ImageMagick.git ImageMagick-7.1.0', shell=True)
+            subprocess.run(['sh', 'ImageMagick-7.1.0/configure'])
+            subprocess.call('sudo ldconfig /usr/local/lib', shell=True)
+        if (which('gcc') is None):
+            print('Installing GCC')
+            subprocess.call(
+                    f'sudo apt install build-essential manpages-dev -y', shell=True)
+            subprocess.call(f'cd {file} | make ', shell=True)
+
+    if platform.system() == 'Darwin':
+        if (which('ImageMagick') is None):
+            print('Installing ImageMagick')
+            subprocess.call('brew install imagemagick', shell=True)
+        if (which('gcc') is None):
+            print('Installing GCC')
+            subprocess.call(
+                    f'brew install gcc && xcode-select --install', shell=True)
+            subprocess.call(f'cd {file} | make ', shell=True)
+    else:
+        subprocess.call(f'cd {file} | make', shell=True)
+
+    # Not yet tested
+    subprocess.call('pip install pillow tqdm',shell=True)
 
 def Pillow():
     # Makes a White background, change accordingly (r,g,b,a)
@@ -108,7 +122,7 @@ def Pillow():
     # Making 5.65 inch pictures from within the INPUT map
     for photo in os.listdir(pathh):
         # converts only files ending with .jpg, .jpeg & .png
-        if photo.endswith('.JPG') or photo.endswith('.jpeg') or photo.endswith('.jpg') or photo.endswith('.png'):
+        if photo.endswith('.JPG') or photo.endswith('.JPEG') or photo.endswith('.jpeg') or photo.endswith('.jpg') or photo.endswith('.png'):
 
             # Open Photo to be converted and don't change the orientation, and change the size accordingly
             img = Image.open(f'{pathh}{photo}').convert('RGBA')
@@ -128,9 +142,11 @@ def Pillow():
             t.update()
             # Uncomment to look at the output of the resized PNG pictures
             # bg.show()
-        if photo.endswith('.JPG') or photo.endswith('.jpeg') or photo.endswith('.jpg') or photo.endswith('.png') is None:
+        if photo.endswith('.JPG') or photo.endswith('.JPEG') or photo.endswith('.jpeg') or photo.endswith('.jpg') or photo.endswith('.png') is None:
             raise NameError(
-                'No pictures which end with either .png, .jpg or .jpeg')
+                f'No pictures which end with either .png, .jpg or .jpeg\nError due to: {photo}')
+        
+            
     print(f'\nThere have been {i} photos converted\n')
 
 
