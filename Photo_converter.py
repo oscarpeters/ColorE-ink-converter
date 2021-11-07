@@ -77,7 +77,7 @@ def init():
                 f'cd {file} | gcc -o .\converter.exe .\converter.c', shell=True)
 
     if platform.system() == 'Linux':
-        if (which('imagemagick') is None):
+        if (which('magick') is None):
             print('Installing ImageMagick, this may take a while')
             subprocess.call('git clone https://github.com/ImageMagick/ImageMagick.git ImageMagick-7.1.0', shell=True)
             subprocess.run(['sh', 'ImageMagick-7.1.0/configure'])
@@ -89,7 +89,7 @@ def init():
             subprocess.call(f'cd {file} | make ', shell=True)
 
     if platform.system() == 'Darwin':
-        if (which('ImageMagick') is None):
+        if (which('magick') is None):
             print('Installing ImageMagick')
             subprocess.call('brew install imagemagick', shell=True)
         if (which('gcc') is None):
