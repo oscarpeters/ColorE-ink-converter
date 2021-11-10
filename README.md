@@ -1,4 +1,7 @@
 # Waveshare 5.65 Inch Color E-paper display image converter
+![Linux](https://img.shields.io/badge/-Linux-grey?logo=linux)
+![OSX](https://img.shields.io/badge/-OSX-black?logo=apple)
+
 This program fully automates the process from a `.PNG`, `.JPG`, and `.Jpeg` to a file format
 which a microcontroller can read and use to show on the E-paper
 
