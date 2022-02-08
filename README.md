@@ -49,7 +49,8 @@ pip install pillow tqdm
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 **Additional information:**
-The script is looking if ImageMagick is installed on Linux & MacOs, and will install it if necassary.
+The script is looking if ImageMagick is installed on Linux & MacOs, and will install it if necassary.  
+It is not necassary to install `ImageMagick` before using the script. It should be installed manually if the script is failing to install it.
 
 ## Additional software:
 **`GCC`** must be installed to make `.RAW` files. 
