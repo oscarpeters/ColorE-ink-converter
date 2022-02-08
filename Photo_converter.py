@@ -185,7 +185,7 @@ def Converter(converter_path, final_path, png_path):
             if photo.endswith('.png'):
                 # problem with using converter program with arguments automaticly
                 subprocess.call(
-                    f'cd {file} | .\converter.exe {png_path}{photo} {final_path}{photo}.RAW', shell=True)
+                    f'cd {file} | .\converter {png_path}{photo} {final_path}{photo}.RAW', shell=True)
         for photo in os.listdir(final_path):
             if not photo.endswith('.RAW'):
                 subprocess.call(f'del {final_path}{photo}', shell=True)
