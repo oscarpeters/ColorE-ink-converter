@@ -42,6 +42,21 @@ from shutil import which
 from PIL import Image, ImageOps
 from tqdm import tqdm
 
+
+'''
+
+User modifications change acordingly below
+
+'''
+# Waveshare size (5.65 inch)
+size = (600, 448)  # panorama view
+# size = (448, 600) # stand-up view
+
+# Makes a White background, change accordingly (r,g,b,a)
+background = Image.new('RGBA', size, (255, 255, 255, 255))
+# Makes a Black background
+# background = Image.new('RGBA', size, (0, 0, 0, 255))
+
 # Automatic path information
 file = (os.path.dirname(os.path.realpath(__file__)))
 if platform.system() == 'Darwin' or 'Linux':
@@ -59,10 +74,6 @@ if platform.system() == 'Windows':
     png_path_undithered = os.path.join(file, 'png', 'undithered', "")
     converter_path = r'(file)'
     final_path = os.path.join(file, 'sdcard', "")
-
-# Waveshare size (5.65 inch)
-size = (600, 448)  # panorama view
-# size = (448, 600) # stand-up view
  
 # Initializes if the program can run properly
 def init():
@@ -104,8 +115,6 @@ def init():
     subprocess.call('pip install pillow tqdm',shell=True)
 
 def Pillow():
-    # Makes a White background, change accordingly (r,g,b,a)
-    background = Image.new('RGBA', size, (255, 255, 255, 255))
     background.save('background.png', 'PNG')
 
     # Counter for photo counter
@@ -127,7 +136,7 @@ def Pillow():
             # Open Photo to be converted and don't change the orientation, and change the size accordingly
             img = Image.open(f'{pathh}{photo}').convert('RGBA')
             img = ImageOps.exif_transpose(img)
-            img.thumbnail(size, Image.ANTIALIAS)
+            img.thumbnail(size, Image.LANCZOS)
 
             # Finding the middle of the photo to paste it in
             img_w, img_h = img.size
