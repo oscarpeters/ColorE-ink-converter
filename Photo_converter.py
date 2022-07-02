@@ -151,7 +151,7 @@ def Pillow():
             t.update()
             # Uncomment to look at the output of the resized PNG pictures
             # bg.show()
-        if photo.endswith('.JPG') or photo.endswith('.JPEG') or photo.endswith('.jpeg') or photo.endswith('.jpg') or photo.endswith('.png') is None:
+        if (photo.endswith('.JPG') or photo.endswith('.JPEG') or photo.endswith('.jpeg') or photo.endswith('.jpg') or photo.endswith('.png')) is None:
             raise NameError(
                 f'No pictures which end with either .png, .jpg or .jpeg\nError due to: {photo}')
         
