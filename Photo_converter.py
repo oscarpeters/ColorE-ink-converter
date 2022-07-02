@@ -108,8 +108,10 @@ def init():
             subprocess.call(
                     f'brew install gcc && xcode-select --install', shell=True)
             subprocess.call(f'cd {file} | make ', shell=True)
-    else:
-        subprocess.call(f'cd {file} | make', shell=True)
+        
+        ## TODO: automatic see if executable is there or not and act on it.
+        else:
+            subprocess.call(f'cd {file} | make', shell=True)
 
     # Not yet tested
     subprocess.call('pip install pillow tqdm',shell=True)
