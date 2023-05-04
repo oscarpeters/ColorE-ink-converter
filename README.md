@@ -66,7 +66,7 @@ There are a couple of issues when using some SD-cards from unknown brands, these
 will not work. 
 
 I am using `Lexar 633x 32Gb` SD-cards which work fine.
-SD-card must be converted to `FAT32` with a **MAXIMUM** size of **35MB**.  
+SD-card must be converted to `FAT32` with a **MAXIMUM** partition size of **35MB**.  
 
 ## Credits
 The converter program is copied from [CNlohr](https://github.com/cnlohr/epaper_projects "CNLohr") his repo, were I am using it to make the `.RAW` files. 
