@@ -184,7 +184,8 @@ def FloydSteinberg(old_path, new_path):
             subprocess.call(
                 f'convert {old_path}{photo} -dither FloydSteinberg -define "dither:diffusion-amount=100%" -remap {old_path}palette.gif {new_path}{photo}', shell=True)
 
-        ''' if Floyd-Steinberg doesn't look that great, you could try it with Riemersma dithering
+        '''
+        if Floyd-Steinberg doesn't look that great, you could try it with Riemersma dithering:
              subprocess.call(f'convert {old_path}{photo} -dither Riemersma -remap {old_path}palette.gif {new_path}{photo}', shell=True)
         '''
     print("\nPhotos converted to Dithered photos\n")
