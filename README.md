@@ -14,7 +14,7 @@ This picture is an example while the original image and the converted image are 
 
 The `Epaper display` is **600 x 448** pixels while `Lena Test Image` is **512 x 512** pixels. Therefore, the white stripes on each end of the dithered picture. 
 
-## Inspirated by [CNlohr](https://github.com/cnlohr/ "CNLohr") YouTube video. 
+## Inspired by [CNlohr](https://github.com/cnlohr/ "CNLohr") YouTube video. 
 
 Watching his [YouTube Video](https://www.youtube.com/watch?v=YawP9RjPcJA&t=248s "YouTube") gave me the spirit to make a display like his, but would not spent much time 
 when converting a normal `.PNG` or `.JPG` to `.RAW` to be read by the microcontroller.
